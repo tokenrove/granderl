@@ -1,0 +1,12 @@
+*.beam
+*.bert
+*.o
+*.so
+.DS_Store
+.eunit
+.qc
+.rebar/
+_build/
+
+# emacs backup files
+*~
