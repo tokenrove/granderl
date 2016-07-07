@@ -2,18 +2,14 @@
 
 -export([
     init/0,
-    rdrand/1,
-    xorshift_tls/1,
-    xorshift_yolo/1,
-    xorshift_rdtsc/1,
-    rdtsc_mod/1
+    uniform/1
 ]).
 
 -on_load(init/0).
 
 -spec init() -> ok.
 init() ->
-    SoName = filename:join(priv_dir(), "granderl_nif"),
+    SoName = filename:join(priv_dir(), "granderl"),
     case catch erlang:load_nif(SoName,[]) of
         _ -> ok
     end.
@@ -29,17 +25,5 @@ priv_dir() ->
 
 -type range() :: 1..4294967295.
 
--spec rdrand(range()) -> any().
-rdrand(_N) -> erlang:nif_error(granderl_nif_not_loaded).
-
--spec xorshift_tls(range()) -> any().
-xorshift_tls(_N) -> erlang:nif_error(granderl_nif_not_loaded).
-
--spec xorshift_yolo(range()) -> any().
-xorshift_yolo(_N) -> erlang:nif_error(granderl_nif_not_loaded).
-
--spec xorshift_rdtsc(range()) -> any().
-xorshift_rdtsc(_N) -> erlang:nif_error(granderl_nif_not_loaded).
-
--spec rdtsc_mod(range()) -> any().
-rdtsc_mod(_N) -> erlang:nif_error(granderl_nif_not_loaded).
+-spec uniform(range()) -> range().
+uniform(_N) -> erlang:nif_error(granderl_nif_not_loaded).

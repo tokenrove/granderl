@@ -1,0 +1,6 @@
+os:
+  - linux
+  - osx
+language: erlang
+otp_release:
+  - 18.3
