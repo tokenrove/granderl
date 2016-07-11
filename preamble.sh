@@ -1,4 +1,4 @@
-set -eu -o pipefail
+set -eu
 
 ERTS_INCLUDE_DIR=${ERTS_INCLUDE_DIR:-$(erl -noshell -s init stop -eval "io:format(\"~s/erts-~s/include/\", [code:root_dir(), erlang:system_info(version)]).")}
 CC=${CC:-cc}
