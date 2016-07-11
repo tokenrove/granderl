@@ -1,6 +1,32 @@
 os:
   - linux
-  - osx
 language: erlang
+env:
+  - CC=gcc-5
 otp_release:
-  - 18.3
+ - 18.3
+install:
+  - export DIEHARDER=dieharder-3.31.1
+  - wget https://www.phy.duke.edu/~rgb/General/dieharder/$DIEHARDER.tgz
+  - tar xzf $DIEHARDER.tgz
+  - cd $DIEHARDER
+  - ./configure --prefix=$TRAVIS_BUILD_DIR
+  - make
+  - make install
+  - PATH=$PATH:$TRAVIS_BUILD_DIR/bin
+  - cd ..
+script:
+  - ./rebar3 compile
+  - ./dieharder.sh
+dist: trusty
+group: edge
+notifications:
+  email: false
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-5
+      - libgsl0-dev
+      - perf
