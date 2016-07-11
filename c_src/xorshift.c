@@ -4,7 +4,11 @@
  */
 
 #include "granderl.h"
+#ifdef HAVE_RDRAND
 #include "rdrand.h"
+#else
+#include "rdtsc.h"
+#endif
 
 struct random_state { uint32_t x, y, z, w; };
 
@@ -19,8 +23,12 @@ static void xorshift_seed(struct random_state *state)
     };
 
     uint64_t t, u;
+#ifdef HAVE_RDRAND
     t = rdrand64();
     u = rdrand64();
+#else
+    rdtsc(&t, &u);
+#endif
     state->x ^= t >> 32;
     state->y ^= t;
     state->z ^= u >> 32;

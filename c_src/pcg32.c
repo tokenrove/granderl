@@ -29,7 +29,11 @@
  */
 
 #include "granderl.h"
+#ifdef HAVE_RDRAND
 #include "rdrand.h"
+#else
+#include "rdtsc.h"
+#endif
 
 
 uint32_t uniform32(void)
@@ -37,7 +41,12 @@ uint32_t uniform32(void)
     static __thread bool seeded = false;
     static __thread uint64_t state;
     if (__builtin_expect(!seeded, 0)) {
+#ifdef HAVE_RDRAND
         state = rdrand64();
+#else
+        uint64_t u;
+        rdtsc(&state, &u);
+#endif
         seeded = true;
     }
 
