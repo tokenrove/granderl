@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-#ifdef __amd64
+#ifdef HAVE_RDRAND
 inline uint64_t rdrand64(void) {
     uint64_t t;
     /* XXX should have a fallback if we try a hundred times and get
