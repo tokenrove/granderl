@@ -5,40 +5,38 @@ have the same interface as `rand:uniform/1`, think of them more like
 `phash2/2` with a timestamp -- not really random, but fast
 (hopefully).
 
+Specifically, some of the PRNGs here use methods that are known to be
+biased.  They are not suitably for any application which assumes
+uniformity.  They are also not guaranteed to produce uncorrelated
+streams when used in parallel.
+
 # Building
 
 Use [rebar3](http://www.rebar3.org/).
 
-# Interface, subject to change
+# Interface
 
 All functions take an integer between 1 and 2<sup>32</sup>-1, and
 return an integer between 0 and the supplied integer minus one.
 
 ## `granderl:`
 
-### `rdrand/1`
+### `uniform/1`
+
+
+# Implementations
+
+## `rdrand`
 
 32-bits of [`RDRAND`](https://en.wikipedia.org/wiki/RdRand).
 
-### `xorshift_tls/1`
+## `xorshift`
 
 Marsaglia's original
 [xorshift](https://en.wikipedia.org/wiki/Xorshift) (with no
 multiplies), keeping state in thread-local storage.  Initialized on
 first call.
 
-### `xorshift_yolo/1`
+## `pcg32`
 
-Xorshift with global state and no attempts at synchronization.
-Intended to determine the costs of other synchronization approaches.
-
-### `rdtsc_mod/1`
-
-[`RDTSC`](https://en.wikipedia.org/wiki/Time_Stamp_Counter) modulo
-`n`.  Definitely not random, but unpredictable enough for some
-purposes.
-
-### `xorshift_rdtsc/1`
-
-Xorshift seeded every time from
-`RDTSC`, for comparison with `rdtsc_mod/1`.
+[PCG](http://www.pcg-random.org), TLS.
