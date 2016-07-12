@@ -9,6 +9,8 @@ TARGET=${TARGET:-./priv/granderl.so}
 SRC=./c_src
 IMPLEMENTATION=${IMPLEMENTATION:-pcg32}
 
+mkdir -p priv
+
 up_to_date_p() {
     for i in $SRC/*.c; do
         if [ "$TARGET" -ot "$i" ]; then exit 1; fi
