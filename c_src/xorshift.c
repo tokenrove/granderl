@@ -40,7 +40,7 @@ uint32_t uniform32(void)
 {
     static __thread bool seeded = false;
     static __thread struct random_state state;
-    if (__builtin_expect(!seeded, 0)) {
+    if (unlikely(!seeded)) {
         xorshift_seed(&state);
         seeded = true;
     }
@@ -58,7 +58,7 @@ ERL_NIF_TERM uniform_1(ErlNifEnv *env,
                        const ERL_NIF_TERM argv[])
 {
     uint32_t n;
-    if (!enif_get_uint(env, argv[0], &n) || 0 == n)
+    if (unlikely(!enif_get_uint(env, argv[0], &n) || 0 == n))
         return enif_make_badarg(env);
 
     uint32_t r = 1 + (((uint64_t)uniform32() * n) >> 32);
