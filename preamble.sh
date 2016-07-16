@@ -20,7 +20,7 @@ test_for_rdrand() {
     "$CC" -o $BUILD/test_for_rdrand $SRC/test_for_rdrand.c && $BUILD/test_for_rdrand
 }
 
-if test_for_rdrand; then
+if test_for_rdrand 2>/dev/null; then
     CFLAGS="$CFLAGS -DHAVE_RDRAND"
     IMPLEMENTATIONS="$IMPLEMENTATIONS rdrand"
 fi
