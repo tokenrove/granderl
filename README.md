@@ -54,3 +54,9 @@ Fog, Agner. ["Pseudo-Random Number Generators for Vector Processors and Multicor
 Marsaglia, George. ["Xorshift RNGs."](http://www.jstatsoft.org/article/view/v008i14) Journal of Statistical Software 8.14 (2003): 1-6.
 
 O'Neill, M.E. ["PCG: A Family of Simple Fast Space-Efficient Statistically Good Algorithms for Random Number Generation"](http://www.pcg-random.org/pdf/toms-oneill-pcg-family-v1.02.pdf).
+
+# License
+
+Because the pcg32 code is derived from Apache-licensed code (see
+c_src/pcg32.c), this package is also
+[Apache licensed](http://www.apache.org/licenses/LICENSE-2.0).

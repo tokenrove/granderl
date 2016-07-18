@@ -1,6 +1,10 @@
-{application, granderl, [
-  {description, "Fast PRNG experiments"},
-  {vsn, "0"},
+{application, granderl,
+ [
+  {description, "Fast-and-loose PRNG experiments"},
+  {vsn, git},
+  {maintainers, ["Julian Squires"]},
+  {licenses, ["Apache"]},
+  {links, [{"GitHub", "https://github.com/tokenrove/granderl"}]},
   {applications, [
     kernel,
     stdlib
