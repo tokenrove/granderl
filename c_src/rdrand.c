@@ -16,8 +16,8 @@ ERL_NIF_TERM uniform_1(ErlNifEnv *env,
     if (unlikely(!enif_get_uint(env, argv[0], &n) || 0 == n))
         return enif_make_badarg(env);
 
-    uint64_t t = rdrand64();
-    uint32_t r = ((t*n)>>32);
+    uint32_t t = rdrand64();
+    uint32_t r = ((uint64_t)(t*n)>>32);
     return enif_make_uint(env, 1 + r);
 }
 
