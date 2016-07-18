@@ -2,7 +2,9 @@ os:
   - linux
 language: erlang
 env:
-  - CC=gcc-5
+  - CC=gcc-5 IMPLEMENTATION=rdrand
+  - CC=gcc-5 IMPLEMENTATION=xorshift
+  - CC=gcc-5 IMPLEMENTATION=pcg32
 otp_release:
  - 18.3
 install:
@@ -15,8 +17,10 @@ install:
   - make install
   - PATH=$PATH:$TRAVIS_BUILD_DIR/bin
   - cd ..
+  - ./rebar3 as test upgrade
 script:
   - ./rebar3 compile
+  - ./rebar3 as test proper
   - ./dieharder.sh
 dist: trusty
 group: edge
