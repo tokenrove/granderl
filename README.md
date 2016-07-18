@@ -12,17 +12,23 @@ streams when used in parallel.
 
 # Building
 
-Use [rebar3](http://www.rebar3.org/).
+Use [rebar3](http://www.rebar3.org/).  To override the default
+implementation choice, you can set the `IMPLEMENTATION` environment
+variable:
+
+```
+$ IMPLEMENTATION=rdrand rebar3 compile
+```
 
 # Interface
 
 All functions take an integer between 1 and 2<sup>32</sup>-1, and
-return an integer between 0 and the supplied integer minus one.
+return an integer between 1 and the supplied integer, like
+`rand:uniform/1`.
 
 ## `granderl:`
 
-### `uniform/1`
-
+### `uniform(N :: 1..4294967295) -> 1..4294967295`
 
 # Implementations
 
@@ -40,3 +46,11 @@ first call.
 ## `pcg32`
 
 [PCG](http://www.pcg-random.org), TLS.
+
+# References
+
+Fog, Agner. ["Pseudo-Random Number Generators for Vector Processors and Multicore Processors."](http://orbit.dtu.dk/ws/files/118886115/Fog_Pseudo_Random_Number_Generators.pdf) Journal of Modern Applied Statistical Methods 14.1 (2015): 308-334.
+
+Marsaglia, George. ["Xorshift RNGs."](http://www.jstatsoft.org/article/view/v008i14) Journal of Statistical Software 8.14 (2003): 1-6.
+
+O'Neill, M.E. ["PCG: A Family of Simple Fast Space-Efficient Statistically Good Algorithms for Random Number Generation"](http://www.pcg-random.org/pdf/toms-oneill-pcg-family-v1.02.pdf).
