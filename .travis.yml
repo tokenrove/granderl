@@ -2,21 +2,13 @@ os:
   - linux
 language: erlang
 env:
-  - CC=gcc-5 IMPLEMENTATION=rdrand
-  - CC=gcc-5 IMPLEMENTATION=xorshift
-  - CC=gcc-5 IMPLEMENTATION=pcg32
+  - CC=gcc-6 IMPLEMENTATION=rdrand
+  - CC=gcc-6 IMPLEMENTATION=xorshift
+  - CC=gcc-6 IMPLEMENTATION=pcg32
 otp_release:
  - 18.3
+ - 19.2
 install:
-  - export DIEHARDER=dieharder-3.31.1
-  - wget https://www.phy.duke.edu/~rgb/General/dieharder/$DIEHARDER.tgz
-  - tar xzf $DIEHARDER.tgz
-  - cd $DIEHARDER
-  - ./configure --prefix=$TRAVIS_BUILD_DIR
-  - make
-  - make install
-  - PATH=$PATH:$TRAVIS_BUILD_DIR/bin
-  - cd ..
   - ./rebar3 as test upgrade
 script:
   - ./rebar3 compile
@@ -33,6 +25,6 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - gcc-5
+      - gcc-6
       - libgsl0-dev
-      - perf
+      - dieharder
