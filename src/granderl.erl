@@ -5,6 +5,7 @@
     uniform/1
 ]).
 
+-compile(no_native).
 -on_load(init/0).
 
 -spec init() -> ok.
