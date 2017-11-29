@@ -4,7 +4,7 @@ ERTS_INCLUDE_DIR=${ERTS_INCLUDE_DIR:-$(erl -noshell -s init stop -eval "io:forma
 CC=${CC:-cc}
 CFLAGS="-fPIC -I${ERTS_INCLUDE_DIR} -std=gnu11 \
   -Wall -Wextra -Wno-missing-field-initializers \
-  -O3 ${CFLAGS:--march=native -mtune=native -ggdb}"
+  -O3 ${CFLAGS:--ggdb}"
 LDFLAGS=${LDFLAGS:-}
 if [ "$(uname -s)" = Darwin ]; then
     LDFLAGS="$LDFLAGS -flat_namespace -undefined suppress"
