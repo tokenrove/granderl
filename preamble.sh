@@ -2,7 +2,7 @@ set -eu
 
 ERTS_INCLUDE_DIR=${ERTS_INCLUDE_DIR:-$(erl -noshell -s init stop -eval "io:format(\"~s/erts-~s/include/\", [code:root_dir(), erlang:system_info(version)]).")}
 CC=${CC:-cc}
-CFLAGS="-fPIC -I${ERTS_INCLUDE_DIR} -std=gnu11 \
+CFLAGS="-fPIC -I${ERTS_INCLUDE_DIR} -std=gnu99 \
   -Wall -Wextra -Wno-missing-field-initializers \
   -O3 ${CFLAGS:--march=native -mtune=native -ggdb}"
 LDFLAGS=${LDFLAGS:-}
