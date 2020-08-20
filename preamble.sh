@@ -12,7 +12,7 @@ fi
 
 SRC=./c_src
 BUILD=./build
-IMPLEMENTATIONS="xorshift pcg32"
+IMPLEMENTATIONS="xorshift pcg32 msws"
 
 mkdir -p $BUILD
 
