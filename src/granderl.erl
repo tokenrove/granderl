@@ -5,6 +5,9 @@
     uniform/1
 ]).
 
+-type range() :: 1..4294967295.
+-export_type([range/0]).
+
 -compile(no_native).
 -on_load(init/0).
 
@@ -23,8 +26,6 @@ priv_dir() ->
             filename:join(AppPath, "priv");
         Dir -> Dir
     end.
-
--type range() :: 1..4294967295.
 
 -spec uniform(range()) -> range().
 uniform(_N) -> erlang:nif_error(granderl_nif_not_loaded).
