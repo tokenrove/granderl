@@ -1,0 +1,13 @@
+metadata:
+  name: granderl
+  description: "erlang library to genrate random numbers"
+  labels:
+    jira-project: DEGA
+    jira-board: 189
+  links:
+    - url: https://github.com/adgear/granderl/blob/master/README.md
+      title: Component Documentation Page
+spec:
+  owner: cg-dsp-bidding-systems
+  type:  library
+  lifecycle: production
