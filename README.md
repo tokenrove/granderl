@@ -47,6 +47,11 @@ first call.
 
 [PCG](http://www.pcg-random.org), TLS.
 
+## `msws`
+
+Middle Square Weyl Sequence, keeping state in thread-local storage.
+Initialized on first call.
+
 # References
 
 Fog, Agner. ["Pseudo-Random Number Generators for Vector Processors and Multicore Processors."](http://orbit.dtu.dk/ws/files/118886115/Fog_Pseudo_Random_Number_Generators.pdf) Journal of Modern Applied Statistical Methods 14.1 (2015): 308-334.
@@ -54,6 +59,8 @@ Fog, Agner. ["Pseudo-Random Number Generators for Vector Processors and Multicor
 Marsaglia, George. ["Xorshift RNGs."](http://www.jstatsoft.org/article/view/v008i14) Journal of Statistical Software 8.14 (2003): 1-6.
 
 O'Neill, M.E. ["PCG: A Family of Simple Fast Space-Efficient Statistically Good Algorithms for Random Number Generation"](http://www.pcg-random.org/pdf/toms-oneill-pcg-family-v1.02.pdf).
+
+Widynsky, Bernard. ["Middle Square Weyl Sequence RNG"](https://arxiv.org/pdf/1704.00358.pdf).
 
 # License
 
