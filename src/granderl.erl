@@ -14,9 +14,7 @@
 -spec init() -> ok.
 init() ->
     SoName = filename:join(priv_dir(), "granderl"),
-    case catch erlang:load_nif(SoName,[]) of
-        _ -> ok
-    end.
+    ok = erlang:load_nif(SoName,[]).
 
 priv_dir() ->
     case code:priv_dir(?MODULE) of
