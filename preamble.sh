@@ -1,6 +1,6 @@
 set -eu
 
-ERTS_INCLUDE_DIR=${ERTS_INCLUDE_DIR:-$(erl -noshell -s init stop -eval "io:format(\"~s/erts-~s/include/\", [code:root_dir(), erlang:system_info(version)]).")}
+ERTS_INCLUDE_DIR=${ERTS_INCLUDE_DIR:-$(erl -noshell -eval "io:format(\"~s/erts-~s/include/\", [code:root_dir(), erlang:system_info(version)])." -s init stop)}
 CC=${CC:-cc}
 CFLAGS="-fPIC -I${ERTS_INCLUDE_DIR} -std=gnu99 \
   -Wall -Wextra -Wno-missing-field-initializers \
