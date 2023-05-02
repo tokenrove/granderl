@@ -1,22 +1,17 @@
 os:
   - linux
+arch:
+  - amd64
+  - arm64
 language: erlang
 env:
-  - CC=gcc-5 IMPLEMENTATION=rdrand
-  - CC=gcc-5 IMPLEMENTATION=xorshift
-  - CC=gcc-5 IMPLEMENTATION=pcg32
+  - CC=gcc-6 IMPLEMENTATION=rdrand
+  - CC=gcc-6 IMPLEMENTATION=xorshift
+  - CC=gcc-6 IMPLEMENTATION=pcg32
 otp_release:
  - 18.3
+ - 19.2
 install:
-  - export DIEHARDER=dieharder-3.31.1
-  - wget https://www.phy.duke.edu/~rgb/General/dieharder/$DIEHARDER.tgz
-  - tar xzf $DIEHARDER.tgz
-  - cd $DIEHARDER
-  - ./configure --prefix=$TRAVIS_BUILD_DIR
-  - make
-  - make install
-  - PATH=$PATH:$TRAVIS_BUILD_DIR/bin
-  - cd ..
   - ./rebar3 as test upgrade
 script:
   - ./rebar3 compile
@@ -24,15 +19,11 @@ script:
   - ./dieharder.sh
 dist: trusty
 group: edge
-notifications:
-  email: false
-  slack:
-    secure: CGZRqldOQ4CFBkWnG7E+D5RpQdYpt2fT9MQGDJV7terCF1aWnJanIMMl4UZtWTZY1cMyANpC07pPePrd+ql8mgis+0AUyomKseUlpIQffYKYZVRT+/frHGTjF+Fhqleq3gKR96lbQGrij8cuHUt2nDu5+bNl0QLmIllwfbagxIRzQUCtnPCdGQ6Fgi8+mY2sH3FgCEnq+czbWpWHlMqBzFq+Zkl8bvOWzMjifOq+KGXNMzRjOzd43vqXdEKY0PAz3TV8WP47HHbfsK9T8+w4HDBV7514AqXE970lHngsSk2c/S1C+Dr0V4P6GCwNaTK5eRCzkv8AT17LbS2/Ys2mS0T3daAKG4upllIkcKVlhkJ2SEYuqxNFoRj0TV770cEnbHRp/OgN/2ltgXHECnfSXHiHnrE5DgjSMUsrGAnVZ1sl3H2yt54tbsbSJwwz1Te2dbCK0613rZMCu/5xyBm6co1U2QJxVXBYKswyTcyGTbAlWREuAutZ5oc+tABlIIAbLQplb8Mp23bz1Ig71FAPPRkNDaDm/yv4nRT7MclYDT7PJ0dCz2MkoNALLJylujPfDCWopLwKnRremdRyCppJ3s7jg09j9MD0dlK+lui0B0cvWmFEbU2jpGDQ7yuX8tHS3Md5FG5+f38URyGM11P74amPyrYcacXGjZ8qFToVb8s=
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - gcc-5
+      - gcc-6
       - libgsl0-dev
-      - perf
+      - dieharder

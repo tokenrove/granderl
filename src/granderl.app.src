@@ -5,6 +5,7 @@
   {maintainers, ["Julian Squires"]},
   {licenses, ["Apache"]},
   {links, [{"GitHub", "https://github.com/tokenrove/granderl"}]},
+  {files, ["build.sh", "preamble.sh", "rebar.config", "rebar.lock", "c_src/", "src/"]},
   {applications, [
     kernel,
     stdlib

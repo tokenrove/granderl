@@ -1,5 +1,8 @@
+#define HAVE_RDRAND
+#include "rdrand.h"
+
 int main(void)
 {
-    asm("rdrand %%eax" : : : "eax");
+    rdrand64();
     return 0;
 }
