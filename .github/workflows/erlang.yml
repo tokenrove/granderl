@@ -6,6 +6,7 @@ jobs:
     strategy:
       matrix:
         erlang: [23, 24, 25, 26]
+        implementation: [rdrand, xorshift, pcg32]
 
     container:
       image: erlang:${{ matrix.erlang }}
@@ -17,6 +18,12 @@ jobs:
             sed -i "/^# deb.*universe/ s/^# //" /etc/apt/sources.list
             apt update
             apt -y install libgsl-dev
+    - name: Compile
+      run:  rebar3 as test compile
+      env: 
+        IMPLEMENTATION: ${{ matrix.implementation }}
+    - name: Run tests
+      run:  rebar3 as test proper
     - name: Install dieharder
       run: |
            export DIEHARDER_SHA=fe552eab52b1f9aaff282844abf37cffebaff0e9
@@ -27,10 +34,6 @@ jobs:
            ./configure --prefix=$GITHUB_WORKSPACE
            make
            make install
-    - name: Compile
-      run:  rebar3 as test compile
-    - name: Run tests
-      run:  rebar3 as test proper
     - name: Run dieharder
       run:  |
             PATH=$PATH:$GITHUB_WORKSPACE/bin
