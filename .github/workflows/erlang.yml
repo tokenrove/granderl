@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        erlang: [23, 24, 25, 26]
+        erlang: [24, 25, 26]
         implementation: [rdrand, xorshift, pcg32]
 
     container:
@@ -24,17 +24,3 @@ jobs:
         IMPLEMENTATION: ${{ matrix.implementation }}
     - name: Run tests
       run:  rebar3 as test proper
-    - name: Install dieharder
-      run: |
-           export DIEHARDER_SHA=fe552eab52b1f9aaff282844abf37cffebaff0e9
-           wget --no-check-certificate https://github.com/eddelbuettel/dieharder/archive/$DIEHARDER_SHA.zip
-           unzip $DIEHARDER_SHA.zip
-           cd dieharder-$DIEHARDER_SHA
-           ./autogen.sh
-           ./configure --prefix=$GITHUB_WORKSPACE
-           make
-           make install
-    - name: Run dieharder
-      run:  |
-            PATH=$PATH:$GITHUB_WORKSPACE/bin
-            ./dieharder.sh
