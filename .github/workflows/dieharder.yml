@@ -1,0 +1,30 @@
+name: Dieharder CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    container:
+      image: erlang:26
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install dependencies
+      run:  |
+            sed -i "/^# deb.*universe/ s/^# //" /etc/apt/sources.list
+            apt update
+            apt -y install libgsl-dev
+    - name: Install dieharder
+      run: |
+           export DIEHARDER_SHA=fe552eab52b1f9aaff282844abf37cffebaff0e9
+           curl -fSL -o $DIEHARDER_SHA.zip https://github.com/eddelbuettel/dieharder/archive/$DIEHARDER_SHA.zip
+           unzip $DIEHARDER_SHA.zip
+           cd dieharder-$DIEHARDER_SHA
+           ./autogen.sh
+           ./configure --prefix=$GITHUB_WORKSPACE
+           make
+           make install
+    - name: Run dieharder
+      run:  |
+            PATH=$PATH:$GITHUB_WORKSPACE/bin
+            ./dieharder.sh
