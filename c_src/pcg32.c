@@ -35,26 +35,36 @@
 #include "rdtsc.h"
 #endif
 
-uint32_t uniform32(void)
-{
-    static __thread bool seeded = false;
-    static __thread uint64_t state;
-    if (unlikely(!seeded)) {
-#ifdef HAVE_RDRAND
-        state = rdrand64();
-#else
-        uint64_t u;
-        rdtsc(&state, &u);
-#endif
-        seeded = true;
-    }
+static __thread uint64_t state = 5573589319906701683ULL;
 
+static uint32_t pcg32(void)
+{
     uint64_t oldstate = state;
     state = oldstate * 6364136223846793005ULL;
     uint32_t xorshifted = ((oldstate >> 18u) ^ oldstate) >> 27u;
     uint32_t rot = oldstate >> 59u;
     uint32_t v = (xorshifted >> rot) | (xorshifted << ((-rot) & 31));
     return v;
+}
+
+uint32_t uniform32(void)
+{
+    static __thread bool seeded = false;
+    if (unlikely(!seeded)) {
+        uint64_t t;
+#ifdef HAVE_RDRAND
+        t = rdrand64();
+#else
+        uint64_t u;
+        rdtsc(&t, &u);
+#endif
+        pcg32();
+        state += t;
+        pcg32();
+        seeded = true;
+    }
+
+    return pcg32();
 }
 
 ERL_NIF_TERM uniform_1(ErlNifEnv *env,

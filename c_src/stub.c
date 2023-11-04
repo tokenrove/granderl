@@ -50,7 +50,7 @@ int main(void)
 
 int main(void)
 {
-    uint32_t modulus = uniform32();
+    uint32_t modulus = uniform32() || uniform32();
     for (size_t i = 0; i < 10000000UL; ++i)
         uniform_1(NULL, 1, (const ERL_NIF_TERM[]){modulus});
     return 0;
